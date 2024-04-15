@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:ganesh/calltable.dart';
+import 'package:app/pages/table.dart';
+import 'package:app/pages/session.dart';
 
 void main() {
   runApp(Dept());
@@ -27,7 +28,14 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   String dropdownValue = 'Department';
-  var items = ['Department', 'OP1', 'OP2', 'Endoscopy', 'Ward/ICU', 'Prof Clinic'];
+  var items = [
+    'Department',
+    'OP1',
+    'OP2',
+    'Endoscopy',
+    'Ward/ICU',
+    'Prof Clinic'
+  ];
   late Timer _timer;
   late String currentTime;
   TextEditingController searchController1 = TextEditingController();
@@ -56,6 +64,15 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.grey,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => ses()),
+            );
+          },
+        ),
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -93,7 +110,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   if (newValue != null) {
                     setState(() {
                       dropdownValue = newValue;
-                      departmentSelected = newValue != 'Department'; // Set departmentSelected based on dropdown value
+                      departmentSelected = newValue !=
+                          'Department'; // Set departmentSelected based on dropdown value
                       if (newValue != 'Department') {
                         Navigator.push(
                           context,
@@ -114,11 +132,12 @@ class _MyHomePageState extends State<MyHomePage> {
                   SizedBox(width: 10),
                   Expanded(
                     child: InkWell(
-                      onTap: departmentSelected // Enable onTap only when department is selected
-                          ? () {
-                              _selectDate(context, searchController1);
-                            }
-                          : null,
+                      onTap:
+                          departmentSelected // Enable onTap only when department is selected
+                              ? () {
+                                  _selectDate(context, searchController1);
+                                }
+                              : null,
                       child: AbsorbPointer(
                         child: TextField(
                           controller: searchController1,
@@ -183,5 +202,3 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 }
-
-
